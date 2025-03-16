@@ -15,8 +15,10 @@ function App() {
   const [ sourceLang, setSourceLang] = useState('pt')
   const [ targetLang, setTargetLang] = useState('en')
   const [ sourceText, setSourceText] = useState('')
+  const [isLoadin, setIsLoadin ] = useState (false)
 
-  useEffect (( ) => { 
+  useEffect (( ) => {
+
 
   }, [sourceText])
 
@@ -83,9 +85,10 @@ function App() {
                 </textarea>
               </div>
               <div className="p-4 relative bg-secondaryBackgroud border-l-gray-200" > 
-                <div className="absolute inset-0 flex items-center justify-center"> 
-                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 to-blue-500"></div>
-                  <p className="text-lg text-textColor"></p>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  { isLoadin  ? ( <div className="animate-spin rounded-full h-8 w-8 border-t-2 to-blue-500"></div>) : (<p className="text-lg text-textColor"></p> )} 
+                  
+                  
 
                 </div>
 
