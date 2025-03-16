@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useState } from "react"
 
 const lenguages = [
@@ -13,6 +14,11 @@ function App() {
 
   const [ sourceLang, setSourceLang] = useState('pt')
   const [ targetLang, setTargetLang] = useState('en')
+  const [ sourceText, setSourceText] = useState('')
+
+  useEffect (( ) => { 
+
+  }, [sourceText])
 
   
 
@@ -71,7 +77,7 @@ function App() {
             <div className="grid grid-cols-1 md:grid-cols-2">
 
               <div className="p-4">
-                <textarea className="w-full h-40  text-textColor bg-transparent resize-none border-none outline-none "  placeholder="
+                <textarea value={sourceText} onChange={ event => setSourceText(event.target.value)} className="w-full h-40  text-textColor bg-transparent resize-none border-none outline-none "  placeholder="
                 Digite seu texto...">
 
                 </textarea>
