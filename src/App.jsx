@@ -1,5 +1,14 @@
 
 function App() {
+
+  const lenguages = [
+    { code : "en", name: "ingles"},
+    { code : "es", name: "espanhol"},
+    { code : "fr", name: "francês"},
+    { code : "de", name: "alemão"},
+    { code : "it", name: "italiano"},
+    { code : "pt", name: "português"},
+  ]
   
 
   return (
@@ -15,8 +24,18 @@ function App() {
         <main className="flex-grow flex items-start justify-center px-4 py-8">
           <div className="w-full max-w-5xl bg-white rounded-lg shadow-md overflow-hidden-">
             <div
-            className="flex items-center justify-between p-4 border-b border-gray-200"></div>
+            className="flex items-center justify-between p-4 border-b border-gray-200">
+              <select  className=" text-sm text-textColor bg-transparent border-none focus:outline-none cursor-pointer">
+               {lenguages.map((lang) =>  (
+                <option key={lang.code} value={lang.code}>
+                  {lang.name}
+                </option>
+               ))}
+             
+              </select>
+            </div>
           </div>
+         
 
         </main>
 
