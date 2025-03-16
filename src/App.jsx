@@ -1,14 +1,20 @@
+import { useState } from "react"
+
+const lenguages = [
+  { code: "en", name: "ingles" },
+  { code: "es", name: "espanhol" },
+  { code: "fr", name: "francês" },
+  { code: "de", name: "alemão" },
+  { code: "it", name: "italiano" },
+  { code: "pt", name: "português" },
+]
 
 function App() {
 
-  const lenguages = [
-    { code: "en", name: "ingles" },
-    { code: "es", name: "espanhol" },
-    { code: "fr", name: "francês" },
-    { code: "de", name: "alemão" },
-    { code: "it", name: "italiano" },
-    { code: "pt", name: "português" },
-  ]
+  const [ sourceLang, setSourceLang] = useState('pt')
+  const [ targetLang, setTargetLang] = useState('en')
+
+  
 
 
   return (
@@ -25,7 +31,7 @@ function App() {
           <div className="w-full max-w-5xl bg-white rounded-lg shadow-md overflow-hidden-">
             <div
               className="flex items-center justify-between p-4 border-b border-gray-200">
-              <select className=" text-sm text-textColor bg-transparent border-none focus:outline-none cursor-pointer">
+              <select value={sourceLang} onChange={event => setSourceLang  (event.target.value)} className=" text-sm text-textColor bg-transparent border-none focus:outline-none cursor-pointer">
                 {lenguages.map((lang) => (
                   <option key={lang.code} value={lang.code}>
                     {lang.name}
@@ -52,7 +58,7 @@ function App() {
 
               </button>
 
-              <select className=" text-sm text-textColor bg-transparent border-none focus:outline-none cursor-pointer">
+              <select value={targetLang} onChange={event => setTargetLang(event.target.value)} className=" text-sm text-textColor bg-transparent border-none focus:outline-none cursor-pointer">
                 {lenguages.map((lang) => (
                   <option key={lang.code} value={lang.code}>
                     {lang.name}
