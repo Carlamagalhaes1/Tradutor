@@ -18,15 +18,15 @@ Mensagem de erro amigável.
 4. Execute o servidor de desenvolvimento: npm run dev
 
 🛠 Tecnologias
-React 18
-Vite
-Tailwind CSS
-API MyMemory Translated
+React 18,
+Vite,
+Tailwind CSS,
+API MyMemory Translated.
 
 📝 Como usar
-Selecione o idioma de origem e o idioma para tradução.
-Digite seu texto no campo da esquerda.
-Veja a tradução aparecer automaticamente à direita.
+Selecione o idioma de origem e o idioma para tradução |
+Digite seu texto no campo da esquerda |
+Veja a tradução aparecer automaticamente à direita |
 Use o botão central para trocar os idiomas e o texto facilmente.
 
 Feito com 💙!
