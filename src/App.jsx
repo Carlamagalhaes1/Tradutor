@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const languages = [
   { code: "en", name: "Inglês" },
@@ -15,21 +15,16 @@ function App() {
   const [sourceText, setSourceText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [translatedText, setTranslatedText] = useState("");
-  const [timeoutId, setTimeoutId] = useState(null); 
+  const timeoutRef = useRef(null);
+
   useEffect(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
-    if (timeoutId) {
-      clearTimeout(timeoutId); 
-    }
-
-    const newTimeoutId = setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       handleTranslate();
-    }, 500); 
+    }, 500);
 
-    setTimeoutId(newTimeoutId); 
-
-    return () => clearTimeout(newTimeoutId);
-
+    return () => clearTimeout(timeoutRef.current);
   }, [sourceText, sourceLang, targetLang]);
 
   const handleTranslate = async () => {
@@ -41,7 +36,9 @@ function App() {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${sourceText}&langpair=${sourceLang}|${targetLang}`
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
+          sourceText
+        )}&langpair=${sourceLang}|${targetLang}`
       );
 
       if (!response.ok) {
@@ -51,7 +48,6 @@ function App() {
       const data = await response.json();
       setTranslatedText(data.responseData.translatedText);
     } catch {
-     
       setTranslatedText("Erro ao traduzir, tente novamente.");
     } finally {
       setIsLoading(false);
@@ -59,94 +55,93 @@ function App() {
   };
 
   const swapTranslate = () => {
-    setSourceLang(targetLang)
-    setTargetLang(sourceLang)
-    setSourceText(translatedText)
-    setTranslatedText(sourceText)
-  }
+    setSourceLang(targetLang);
+    setTargetLang(sourceLang);
+    setSourceText(translatedText);
+    setTranslatedText(sourceText);
+  };
 
   return (
-    <>
-      <div className="min-h-screen bg-backgroud flex flex-col ">
-        <header className="bg-white shadow-sm">
-          <div className="max-w-5xl mx-auto px-4 py-3 flex items-center">
-            <h1 className="text-headerColor text-2xl font-bold">Tradutor</h1>
-          </div>
-        </header>
+    <div className="min-h-screen bg-gray-100 flex flex-col">
+      <header className="text-center text-3xl font-extrabold text-indigo-600 py-8">
+        Tradutor de Idiomas 🌐
+      </header>
 
-        <main className="flex-grow flex items-start justify-center px-4 py-8">
-          <div className="w-full max-w-5xl bg-white rounded-lg shadow-md overflow-hidden-">
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
-              <select
-                value={sourceLang}
-                onChange={(event) => setSourceLang(event.target.value)}
-                className="text-sm text-textColor bg-transparent border-none focus:outline-none cursor-pointer"
-              >
-                {languages.map((lang) => (
-                  <option key={lang.code} value={lang.code}>
-                    {lang.name}
-                  </option>
-                ))}
-              </select>
-              <button className="p-2 rounded-full hover:bg-gray-100 outline-none " onClick={(swapTranslate)}>
-                <svg
-                  className="w-5 h-5 text-headerColor"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-                  />
-                </svg>
-              </button>
+      <main className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row gap-6">
+        {/* Selects e swap */}
+        <div className="flex items-center justify-center md:flex-col gap-4 md:gap-6 md:w-32">
+          <select
+            aria-label="Idioma de origem"
+            value={sourceLang}
+            onChange={(e) => setSourceLang(e.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer transition"
+          >
+            {languages.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.name}
+              </option>
+            ))}
+          </select>
 
-              <select
-                value={targetLang}
-                onChange={(event) => setTargetLang(event.target.value)}
-                className="text-sm text-textColor bg-transparent border-none focus:outline-none cursor-pointer"
-              >
-                {languages.map((lang) => (
-                  <option key={lang.code} value={lang.code}>
-                    {lang.name}
-                  </option>
-                ))}
-              </select>
+          <button
+            aria-label="Trocar idiomas"
+            onClick={swapTranslate}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white p-2 rounded-full transition shadow-md"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+              />
+            </svg>
+          </button>
+
+          <select
+            aria-label="Idioma de destino"
+            value={targetLang}
+            onChange={(e) => setTargetLang(e.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 cursor-pointer transition"
+          >
+            {languages.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Textareas */}
+        <textarea
+          aria-label="Texto de origem"
+          value={sourceText}
+          onChange={(e) => setSourceText(e.target.value)}
+          placeholder="Digite seu texto..."
+          className="flex-1 border border-gray-300 rounded-md p-3 resize-none shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400 h-40"
+        />
+
+        <div className="flex-1 bg-gray-50 p-4 rounded-md min-h-[160px] text-lg text-gray-800 relative">
+          {isLoading ? (
+            <div className="flex justify-center items-center h-full">
+              <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-indigo-600"></div>
             </div>
+          ) : (
+            <p>{translatedText || <span className="text-gray-400">Aqui aparecerá a tradução</span>}</p>
+          )}
+        </div>
+      </main>
 
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="p-4">
-                <textarea
-                  value={sourceText}
-                  onChange={(event) => setSourceText(event.target.value)}
-                  className="w-full h-40 text-textColor bg-transparent resize-none border-none outline-none"
-                  placeholder="Digite seu texto..."
-                ></textarea>
-              </div>
-              <div className="p-4 relative bg-secondaryBackgroud border-l-gray-200">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {isLoading ? (
-                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 to-blue-500"></div>
-                  ) : (
-                    <p className="text-lg text-textColor">{translatedText}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </main>
-
-        <footer className="bg-white border-t border-gray-200 mt-auto ">
-          <div className="max-w-5xl mx-auto px-4 py-3 text-sm text-headerColor">
-            &copy; {new Date().getFullYear()} Tradutor
-          </div>
-        </footer>
-      </div>
-    </>
+      <footer className="text-center text-gray-500 py-6 mt-auto select-none">
+        &copy; {new Date().getFullYear()} Tradutor
+      </footer>
+    </div>
   );
 }
 
