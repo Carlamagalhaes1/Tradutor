@@ -46,6 +46,7 @@ function App() {
       }
 
       const data = await response.json();
+      console.log(data);
       setTranslatedText(data.responseData.translatedText);
     } catch {
       setTranslatedText("Erro ao traduzir, tente novamente.");
