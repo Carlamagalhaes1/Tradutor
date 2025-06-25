@@ -68,7 +68,7 @@ function App() {
       </header>
 
       <main className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row gap-6">
-        {/* Selects e swap */}
+        
         <div className="flex items-center justify-center md:flex-col gap-4 md:gap-6 md:w-32">
           <select
             aria-label="Idioma de origem"
