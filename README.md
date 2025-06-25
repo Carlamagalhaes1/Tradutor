@@ -1,12 +1,32 @@
-# React + Vite
+🌍 Tradutor de Idiomas React + Vite
+Um tradutor de textos simples e rápido feito com React, Vite e um pouco de  Tailwind CSS. Traduz usando a API pública MyMemory, com troca fácil de idiomas e tradução em tempo real.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🎯 Funcionalidades
+Tradução automática com debounce de 500ms;
+Escolha de idioma origem e destino;
+Troca rápida de idiomas e texto traduzido;
+Indicador de carregamento durante a tradução;
+Mensagem de erro amigável.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+⚡️ Como rodar
+1. Clone o repositório: git clone https://github.com/Carlamagalhaes1/Tradutor.git
+2. Acesse o repositório do projeto : cd Tradutor_idiomas
+3. Instale as dependências: npm install
+4. Execute o servidor de desenvolvimento: npm run dev
+
+🛠 Tecnologias
+React 18,
+Vite,
+Tailwind CSS,
+API MyMemory Translated.
+
+📝 Como usar
+Selecione o idioma de origem e o idioma para tradução |
+Digite seu texto no campo da esquerda |
+Veja a tradução aparecer automaticamente à direita |
+Use o botão central para trocar os idiomas e o texto facilmente.
+
+Feito com 💙!
