@@ -21,45 +21,50 @@ function App() {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     timeoutRef.current = setTimeout(() => {
+      const handleTranslate = async () => {
+        if (sourceText.trim() === "") {
+          setTranslatedText("");
+          return;
+        }
+
+        setIsLoading(true);
+        try {
+          const response = await fetch(
+            `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
+              sourceText
+            )}&langpair=${sourceLang}|${targetLang}`
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP ERROR: ${response.status}`);
+          }
+
+          const data = await response.json();
+          setTranslatedText(data.responseData.translatedText);
+        } catch {
+          setTranslatedText("Erro ao traduzir, tente novamente.");
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
       handleTranslate();
     }, 500);
 
     return () => clearTimeout(timeoutRef.current);
   }, [sourceText, sourceLang, targetLang]);
 
-  const handleTranslate = async () => {
-    if (sourceText.trim() === "") {
-      setTranslatedText("");
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
-          sourceText
-        )}&langpair=${sourceLang}|${targetLang}`
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP ERROR: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
-      setTranslatedText(data.responseData.translatedText);
-    } catch {
-      setTranslatedText("Erro ao traduzir, tente novamente.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const swapTranslate = () => {
-    setSourceLang(targetLang);
-    setTargetLang(sourceLang);
-    setSourceText(translatedText);
-    setTranslatedText(sourceText);
+    // Salva os valores atuais para garantir a troca correta
+    const oldSourceLang = sourceLang;
+    const oldTargetLang = targetLang;
+    const oldSourceText = sourceText;
+    const oldTranslatedText = translatedText;
+
+    setSourceLang(oldTargetLang);
+    setTargetLang(oldSourceLang);
+    setSourceText(oldTranslatedText);
+    setTranslatedText(oldSourceText);
   };
 
   return (
@@ -69,7 +74,6 @@ function App() {
       </header>
 
       <main className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row gap-6">
-        
         <div className="flex items-center justify-center md:flex-col gap-4 md:gap-6 md:w-32">
           <select
             aria-label="Idioma de origem"
@@ -134,7 +138,11 @@ function App() {
               <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-indigo-600"></div>
             </div>
           ) : (
-            <p>{translatedText || <span className="text-gray-400">Aqui aparecerá a tradução</span>}</p>
+            <p>
+              {translatedText || (
+                <span className="text-gray-400">Aqui aparecerá a tradução</span>
+              )}
+            </p>
           )}
         </div>
       </main>
