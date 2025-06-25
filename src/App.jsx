@@ -140,7 +140,7 @@ function App() {
           ) : (
             <p>
               {translatedText || (
-                <span className="text-gray-400">Aqui aparecerá a tradução</span>
+                <span className="text-gray-400">Aqui aparecerá a tradução.</span>
               )}
             </p>
           )}
