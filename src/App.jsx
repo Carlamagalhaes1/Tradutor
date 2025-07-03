@@ -129,7 +129,7 @@ function App() {
           value={sourceText}
           onChange={(e) => setSourceText(e.target.value)}
           placeholder="Digite seu texto..."
-          className="flex-1 border-2 border-gray-300 rounded-md p-3 resize-none shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400 h-40"
+          className="flex-1 border border-gray-300 rounded-md p-3 resize-none shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400 h-40"
         />
 
         <div className="flex-1 bg-gray-50 p-4 rounded-md min-h-[160px] text-lg text-gray-800 relative">
