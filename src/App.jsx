@@ -30,9 +30,7 @@ function App() {
         setIsLoading(true);
         try {
           const response = await fetch(
-            `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
-              sourceText
-            )}&langpair=${sourceLang}|${targetLang}`
+            `${import.meta.env.VITE_API_MYMEMORY}?q=${encodeURIComponent(sourceText)}&langpair=${sourceLang}|${targetLang}`
           );
 
           if (!response.ok) {
