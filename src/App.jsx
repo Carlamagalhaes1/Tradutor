@@ -53,7 +53,7 @@ function App() {
   }, [sourceText, sourceLang, targetLang]);
 
   const swapTranslate = () => {
-    // Salva os valores atuais para garantir a troca correta
+    
     const oldSourceLang = sourceLang;
     const oldTargetLang = targetLang;
     const oldSourceText = sourceText;
@@ -121,12 +121,12 @@ function App() {
           </select>
         </div>
 
-        {/* Textareas */}
+        
         <textarea
           aria-label="Texto de origem"
           value={sourceText}
           onChange={(e) => setSourceText(e.target.value)}
-          placeholder="Digite seu texto..."
+          placeholder="Digite pelo menos duas ou mais palavras..."
           className="flex-1 border border-gray-300 rounded-md p-3 resize-none shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-400 h-40"
         />
 
