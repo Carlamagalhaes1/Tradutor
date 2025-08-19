@@ -23,10 +23,15 @@ Vite,
 Tailwind CSS,
 API MyMemory Translated.
 
-📝 Como usar
-Selecione o idioma de origem e o idioma para tradução |
-Digite seu texto no campo da esquerda |
-Veja a tradução aparecer automaticamente à direita |
-Use o botão central para trocar os idiomas e o texto facilmente.
+---
+
+
+## 🌐 Acesse o Projeto Online
+
+👉 [Clique aqui para acessar o Tradutor de Idiomas](https://tradutordeidiomas.vercel.app/)
+
+> 
+
+---
 
 Feito com 💙!
